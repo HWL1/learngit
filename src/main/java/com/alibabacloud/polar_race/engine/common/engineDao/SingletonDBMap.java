@@ -25,7 +25,7 @@ public class SingletonDBMap {
 
     }
 
-
+/**/
     public void write(byte[] key,byte[] val)throws EngineException {
 
             DBMap.put(key, val);

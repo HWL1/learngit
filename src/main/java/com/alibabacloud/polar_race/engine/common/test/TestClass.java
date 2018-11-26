@@ -15,6 +15,18 @@ public class TestClass {
         return bytedata;
     }
 
+    public static  synchronized void synchronimmp()throws Exception{
+        EngineRace engineRace = new EngineRace();
+        byte[] by = TestClass.getTestThreadExample();
+        byte[] val = TestClass.getTestThreadExample();
+        engineRace.write(by, val);
+        System.out.println("写入 key：" + by + "val ：" + val);
+        val = engineRace.read(by);
+        System.out.println("读 key：" + by + "val :" + val);
+    }
+
+
+
 
     public static void main(String[] args) {
 
@@ -24,13 +36,7 @@ public class TestClass {
             new Thread("" + i){
                 public void run(){
                     try {
-                        EngineRace engineRace = new EngineRace();
-                        byte[] by = TestClass.getTestThreadExample();
-                        byte[] val = TestClass.getTestThreadExample();
-                        engineRace.write(by, val);
-                        System.out.println("写入 key：" +by+ "val ："+val);
-                        engineRace.read(by);
-                        System.out.println("读 key：" +by);
+                        synchronimmp();
                     }catch (Exception e){
                         System.out.println("Thread: 异常" +e);
                     }
@@ -41,10 +47,9 @@ public class TestClass {
 
 
         long t2=System.currentTimeMillis();
-        System.out.println("Thread: 数量 " +threadNumber+ "运行时间 ："+(t2-t1));
+        System.out.println("Thread: 数量 " +threadNumber+ "运行时间 ："+(t2-t1)+"毫秒");
     }
 
-
-    }
+}
 
 

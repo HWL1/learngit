@@ -1,24 +1,23 @@
 package com.alibabacloud.polar_race.engine.common;
 
-import com.alibabacloud.polar_race.engine.common.AbstractEngine;
+import com.alibabacloud.polar_race.engine.common.engineDao.DBmap;
+import com.alibabacloud.polar_race.engine.common.engineDao.SingletonDBMap;
 import com.alibabacloud.polar_race.engine.common.exceptions.EngineException;
-import com.alibabacloud.polar_race.engine.common.exceptions.RetCodeEnum;
 
 public class EngineRace extends AbstractEngine {
-
+	DBmap singletonDBMap = SingletonDBMap.getInstance();
 	@Override
 	public void open(String path) throws EngineException {
 	}
 	
 	@Override
 	public void write(byte[] key, byte[] value) throws EngineException {
+		singletonDBMap.write(key,value);
 	}
 
 	@Override
 	public byte[] read(byte[] key) throws EngineException {
-		byte[] value = null;
-		
-		return value;
+		return singletonDBMap.read(key);
 	}
 	
 	@Override

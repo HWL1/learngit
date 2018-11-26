@@ -1,35 +1,21 @@
 package com.alibabacloud.polar_race.engine.common.engineDao;
 
-import com.alibabacloud.polar_race.engine.common.exceptions.EngineException;
-
-import java.util.concurrent.ConcurrentHashMap;
-
 public class SingletonDBMap {
 
-    private static volatile SingletonDBMap singletonMap;
-    private static volatile ConcurrentHashMap<byte[],byte[]>  DBMap;
+    private static volatile DBmap singletonMap;
+
     private SingletonDBMap() {}
-    public static SingletonDBMap getInstance() {
+    public static DBmap getInstance() {
         if (singletonMap == null) {
-            synchronized (SingletonDBMap.class) {
+            synchronized (DBmap.class) {
                 if (singletonMap == null) {
-                    singletonMap = new SingletonDBMap();
+                    singletonMap = new DBmap();
                 }
             }
         }
         return singletonMap;
     }
-    public byte[] read(byte[] key)throws EngineException{
 
-      return DBMap.get(key);
-
-    }
-
-/**/
-    public void write(byte[] key,byte[] val)throws EngineException {
-
-            DBMap.put(key, val);
-    }
 
 
 }

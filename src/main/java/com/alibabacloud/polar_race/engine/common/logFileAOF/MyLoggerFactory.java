@@ -9,7 +9,7 @@ public class MyLoggerFactory {
 
 
     public static  void  myLogger(String s){
-        System.out.println(MyLoggerFactory.T.getName()+" "+s);
+        System.out.println(MyLoggerFactory.T.getName()+"----------"+s);
     }
 
 }

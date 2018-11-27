@@ -6,7 +6,7 @@ public class UtilClass {
 
         String s ="";
         for(int i =0;i<by.length;i++){
-            s = s+""+by[i];
+            s = s+"，"+by[i];
         }
         return s;
     }

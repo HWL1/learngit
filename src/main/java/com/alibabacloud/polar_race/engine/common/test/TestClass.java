@@ -1,11 +1,13 @@
 package com.alibabacloud.polar_race.engine.common.test;
 
 import com.alibabacloud.polar_race.engine.common.EngineRace;
+import com.alibabacloud.polar_race.engine.common.logFileAOF.MyLoggerFactory;
+import com.alibabacloud.polar_race.engine.common.util.UtilClass;
 
 import java.util.Random;
 
 public class TestClass {
-
+    private static MyLoggerFactory log = new  MyLoggerFactory(TestClass.class);
     public static byte[]  getTestThreadExample() {
         Random ra =new Random();
         byte[] bytedata = new byte[8];
@@ -15,14 +17,15 @@ public class TestClass {
         return bytedata;
     }
 
-    public static  synchronized void synchronimmp()throws Exception{
+    public static   void  synchronimmp()throws Exception{
         EngineRace engineRace = new EngineRace();
         byte[] by = TestClass.getTestThreadExample();
         byte[] val = TestClass.getTestThreadExample();
         engineRace.write(by, val);
-        System.out.println("写入 key：" + by + "val ：" + val);
+        log.myLogger("写入 key：[" + UtilClass.toString(by )+ " ]  val ：[" + UtilClass.toString(val) );
+
         val = engineRace.read(by);
-        System.out.println("读 key：" + by + "val :" + val);
+        log.myLogger("读 key：[" +UtilClass.toString(by )+ " ]   val ：[" + UtilClass.toString(val) );
     }
 
 
@@ -31,7 +34,7 @@ public class TestClass {
     public static void main(String[] args) {
 
         long t1=System.currentTimeMillis();
-        int threadNumber = 10;
+        int threadNumber = 80;
         for(int i=0; i<threadNumber; i++){
             new Thread("" + i){
                 public void run(){

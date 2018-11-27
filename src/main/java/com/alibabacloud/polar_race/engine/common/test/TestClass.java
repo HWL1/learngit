@@ -2,7 +2,6 @@ package com.alibabacloud.polar_race.engine.common.test;
 
 import com.alibabacloud.polar_race.engine.common.EngineRace;
 import com.alibabacloud.polar_race.engine.common.logFileAOF.MyLoggerFactory;
-import com.alibabacloud.polar_race.engine.common.util.UtilClass;
 
 import java.util.Random;
 
@@ -17,15 +16,15 @@ public class TestClass {
         return bytedata;
     }
 
-    public static   void  synchronimmp()throws Exception{
+    public static   void  synchronimmp(int n)throws Exception{
         EngineRace engineRace = new EngineRace();
-        byte[] by = TestClass.getTestThreadExample();
-        byte[] val = TestClass.getTestThreadExample();
-        engineRace.write(by, val);
-        log.myLogger("写入 key：[" + UtilClass.toString(by )+ " ]  val ：[" + UtilClass.toString(val) );
 
-        val = engineRace.read(by);
-        log.myLogger("读 key：[" +UtilClass.toString(by )+ " ]   val ：[" + UtilClass.toString(val) );
+        for(int i =0;i<n;i++) {
+            byte[] by = getTestThreadExample();
+            byte[] val = getTestThreadExample();
+            engineRace.write(by, val);
+            val = engineRace.read(by);
+        }
     }
 
 
@@ -39,18 +38,15 @@ public class TestClass {
             new Thread("" + i){
                 public void run(){
                     try {
-                        synchronimmp();
+                        synchronimmp(20);
                     }catch (Exception e){
-                        System.out.println("Thread: 异常" +e);
+                        log.myLogger("Thread: 异常" +e);
                     }
                 }
             }.start();
         }
-
-
-
         long t2=System.currentTimeMillis();
-        System.out.println("Thread: 数量 " +threadNumber+ "运行时间 ："+(t2-t1)+"毫秒");
+        log.myLogger("Thread: 数量 " +threadNumber+ "运行时间 ："+(t2-t1)+"毫秒");
     }
 
 }

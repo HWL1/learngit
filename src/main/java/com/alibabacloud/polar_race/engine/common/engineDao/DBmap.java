@@ -9,6 +9,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DBmap {
     private static  MyLoggerFactory log = new  MyLoggerFactory(DBmap.class);
     private static volatile ConcurrentHashMap<byte[],byte[]> DBMap;
+    public DBmap(){
+        DBMap = new ConcurrentHashMap<byte[],byte[]>();
+    }
+    public static  ConcurrentHashMap <byte[],byte[]> getMap(){
+        return DBMap;
+    }
+    public static  void setMap(ConcurrentHashMap <byte[],byte[]> DBMap){
+        DBmap.DBMap = DBMap;
+    }
+
+
     public byte[] read(byte[] key)throws EngineException {
   try {
       return DBMap.get(key);
@@ -19,9 +30,12 @@ public class DBmap {
     }
 
     public void write(byte[] key,byte[] val)throws EngineException {
-        System.out.println("write   key:" +key[0]+ "    val:"+val[0]);
+        if(SingletonDBMap.getInstance().DBMap == null){
+            log.myLogger("SingletonDBMap.getInstance().DBMap:为空" + UtilClass.toString(key));
+            DBMap = SingletonDBMap.getInstance().DBMap;
+        }
         DBMap.put(key, val);
-        log.myLogger(""+DBMap.get(key));
+
     }
 
 

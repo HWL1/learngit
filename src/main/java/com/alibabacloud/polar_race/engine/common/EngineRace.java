@@ -19,7 +19,7 @@ public class EngineRace extends AbstractEngine {
 			log.myLogger("singletonDBMap = "+singletonDBMap);
 
 		singletonDBMap.write(key,value);
-		log.myLogger("写入 key：[" + UtilClass.toString(key )+ " ]  val ：[" + UtilClass.toString(value) );
+		//log.myLogger("写入 key：[" + UtilClass.toString(key )+ " ]  val ：[" + UtilClass.toString(value) );
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class EngineRace extends AbstractEngine {
 			log.myLogger("singletonDBMap = "+singletonDBMap);
 
 		byte[] val = singletonDBMap.read(key);
-		log.myLogger("读 key：[" +UtilClass.toString(key )+ " ]   val ：[" + UtilClass.toString(val) );
+		log.myLogger("读 key：[" + UtilClass.toString(key )+ " ]   val ：[" + UtilClass.toString(val) );
 		return val;
 	}
 	

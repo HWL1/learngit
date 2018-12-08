@@ -21,12 +21,12 @@ public class DBmap {
 
 
     public byte[] read(byte[] key)throws EngineException {
-  try {
+     try {
       return DBMap.get(key);
-  }catch (Exception e){
-      System.out.println("key:为空" + UtilClass.toString(key));
-      return null;
-  }
+        }catch (Exception e){
+        System.out.println("key:为空" + UtilClass.toString(key));
+        return null;
+        }
     }
 
     public void write(byte[] key,byte[] val)throws EngineException {
